@@ -4,9 +4,8 @@ export interface CurrentUser {
   email: string;
 }
 
-export interface UserAppProps {
-  container?: HTMLElement;
+export interface AuthState {
   user: CurrentUser | null;
   accessToken: string | null;
-  onLogout: () => void;
+  isAuthenticated: boolean;
 }

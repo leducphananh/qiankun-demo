@@ -1,13 +1,15 @@
-import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
-import qiankun from 'vite-plugin-qiankun';
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+import qiankun from "vite-plugin-qiankun";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     react(),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (qiankun as any)('user-app', {
+    // @ts-expect-error vite-plugin-qiankun has incorrect default export typing in some TS setups
+    qiankun("user-app", {
       useDevMode: true,
     }),
   ],
@@ -15,7 +17,7 @@ export default defineConfig({
   server: {
     port: 5174,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      "Access-Control-Allow-Origin": "*",
     },
   },
 });

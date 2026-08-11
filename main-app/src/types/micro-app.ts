@@ -1,11 +1,7 @@
-export interface CurrentUser {
-  id: number;
-  name: string;
-  email: string;
-}
+import type { CurrentUser } from '../auth/type';
 
 export interface UserAppProps {
   user: CurrentUser | null;
-  theme: 'light' | 'dark';
+  accessToken: string | null;
   onLogout: () => void;
 }

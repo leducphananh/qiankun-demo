@@ -1,12 +1,13 @@
-import { registerMicroApps, start } from 'qiankun';
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import './index.css';
-import type { UserAppProps } from './types/micro-app';
+import { initGlobalState, registerMicroApps, start } from "qiankun";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import { getAuthState, logout, subscribe } from "./auth/auth";
+import "./index.css";
+import type { UserAppProps } from "./types/micro-app";
 
-const root = createRoot(document.getElementById('root')!);
+const root = createRoot(document.getElementById("root")!);
 
 root.render(
   <StrictMode>
@@ -16,24 +17,37 @@ root.render(
   </StrictMode>,
 );
 
+const auth = getAuthState();
+
+const globalState = initGlobalState({
+  user: auth.user,
+  accessToken: auth.accessToken,
+});
+
+subscribe((newState) => {
+  globalState.setGlobalState({
+    user: newState.user,
+    accessToken: newState.accessToken,
+  });
+});
+
 const userAppProps: UserAppProps = {
-  user: {
-    id: 1,
-    name: 'Phan Anh',
-    email: 'phananh@example.com',
-  },
-  theme: 'dark',
+  user: auth.user,
+  accessToken: auth.accessToken,
+
   onLogout: () => {
-    console.log('Main App Logout');
+    logout();
+
+    console.log("[main-app] User logged out");
   },
 };
 
 registerMicroApps([
   {
-    name: 'user-app',
-    entry: '//localhost:5174',
-    container: '#subapp-container',
-    activeRule: '/users',
+    name: "user-app",
+    entry: "//localhost:5174",
+    container: "#subapp-container",
+    activeRule: "/users",
 
     props: userAppProps,
   },
