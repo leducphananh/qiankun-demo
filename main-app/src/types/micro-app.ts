@@ -1,4 +1,4 @@
-import type { CurrentUser } from '../auth/type';
+import type { CurrentUser } from "../auth/type";
 
 export interface UserAppProps {
   user: CurrentUser | null;
