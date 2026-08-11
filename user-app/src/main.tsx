@@ -7,10 +7,17 @@ import {
 } from 'vite-plugin-qiankun/dist/helper';
 import App from './App.tsx';
 import './index.css';
+import type { UserAppProps } from './types/qiankun.ts';
 
 let root: Root | null = null;
 
-function render(props: QiankunProps = {}) {
+function render(
+  props: UserAppProps = {
+    user: null,
+    theme: 'light',
+    onLogout: () => console.log('User App Logout'),
+  },
+) {
   const { container } = props;
 
   const mountNode = container
@@ -25,15 +32,15 @@ function render(props: QiankunProps = {}) {
 
   root.render(
     <StrictMode>
-      <App />
+      <App user={props.user} theme={props.theme} onLogout={props.onLogout} />
     </StrictMode>,
   );
 }
 
 renderWithQiankun({
-  mount(props) {
+  mount(props: QiankunProps) {
     console.log('[user-app] mount');
-    render(props);
+    render(props as unknown as UserAppProps);
   },
   bootstrap() {
     console.log('[user-app] bootstrap');

@@ -1,4 +1,5 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import type { CurrentUser } from './types/qiankun';
 
 function UserList() {
   return (
@@ -34,16 +35,31 @@ function CreateUser() {
   );
 }
 
-export default function App() {
+interface AppProps {
+  user: CurrentUser | null;
+  theme: 'light' | 'dark';
+  onLogout: () => void;
+}
+
+export default function App({ user, theme, onLogout }: AppProps) {
   return (
-    <BrowserRouter basename="/users">
-      <Routes>
-        <Route path="/" element={<UserList />} />
+    <div>
+      <div>
+        <h2>User App</h2>
+        <p>Welcome, {user?.name ?? 'Guest'}</p>
+        <p>Current theme: {theme}</p>
+        <button onClick={onLogout}>Logout</button>
+      </div>
 
-        <Route path="/:id" element={<UserDetail />} />
+      <hr />
 
-        <Route path="/create" element={<CreateUser />} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter basename="/users">
+        <Routes>
+          <Route path="/" element={<UserList />} />
+          <Route path="/:id" element={<UserDetail />} />
+          <Route path="/create" element={<CreateUser />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
