@@ -1,5 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import CreateUser from "./pages/CreateUser";
+import Profile from "./pages/Profile";
 import UserDetail from "./pages/UserDetail";
 import UserList from "./pages/UserList";
 import type { CurrentUser } from "./types/qiankun";
@@ -27,6 +28,12 @@ export default function App({ user, onLogout }: AppProps) {
         </div>
 
         <div className="flex items-center gap-4">
+          <Link
+            to="/profile"
+            className="text-sm font-medium text-gray-600 transition-colors hover:text-blue-600"
+          >
+            Profile
+          </Link>
           <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5">
             <div className="h-2 w-2 rounded-full bg-blue-500 text-blue-500 shadow-[0_0_8px_currentColor]" />
           </div>
@@ -41,13 +48,12 @@ export default function App({ user, onLogout }: AppProps) {
 
       {/* Router Area */}
       <div className="flex-1">
-        <BrowserRouter basename="/users">
-          <Routes>
-            <Route path="/" element={<UserList />} />
-            <Route path="/:id" element={<UserDetail />} />
-            <Route path="/create" element={<CreateUser />} />
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<UserList />} />
+          <Route path="/:id" element={<UserDetail />} />
+          <Route path="/create" element={<CreateUser />} />
+          <Route path="/profile" element={<Profile user={user} />} />
+        </Routes>
       </div>
     </div>
   );

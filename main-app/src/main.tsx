@@ -3,9 +3,14 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { getAuthState, logout, subscribe } from "./auth/auth";
+import { getAuthState, logout, subscribe, updateUser } from "./auth/auth";
+import { on } from "./events/event-bus";
 import "./index.css";
 import type { UserAppProps } from "./types/micro-app";
+
+on("user.updated", (updatedUser) => {
+  updateUser(updatedUser);
+});
 
 const root = createRoot(document.getElementById("root")!);
 

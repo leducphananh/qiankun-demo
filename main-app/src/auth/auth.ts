@@ -20,6 +20,16 @@ export function login(user: CurrentUser, accessToken: string): void {
   notify();
 }
 
+export function updateUser(user: CurrentUser): void {
+  if (state.isAuthenticated && state.user) {
+    state = {
+      ...state,
+      user: { ...state.user, ...user },
+    };
+    notify();
+  }
+}
+
 export function logout(): void {
   state = {
     user: null,

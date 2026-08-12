@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot, type Root } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import {
   qiankunWindow,
   renderWithQiankun,
@@ -34,7 +35,9 @@ function render(
 
   root.render(
     <StrictMode>
-      <App user={props.user} onLogout={props.onLogout} />
+      <BrowserRouter basename="/users">
+        <App user={props.user} onLogout={props.onLogout} />
+      </BrowserRouter>
     </StrictMode>,
   );
 }
