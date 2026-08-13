@@ -1,0 +1,15 @@
+{
+  "name": "qiankun-demo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:main": "yarn workspace main-app dev",
+    "dev:user": "yarn workspace user-app dev",
+    "dev:order": "yarn workspace order-app dev",
+    "dev:all": "npx concurrently \"yarn dev:main\" \"yarn dev:user\" \"yarn dev:order\"",
+    "build:all": "yarn workspaces run build"
+  }
+}
