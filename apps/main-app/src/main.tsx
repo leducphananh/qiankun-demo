@@ -1,15 +1,16 @@
-import type { OrderAppProps, UserAppProps } from "@demo/contracts";
+import type { CurrentUser, OrderAppProps, UserAppProps } from "@demo/contracts";
 import { initGlobalState, registerMicroApps, start } from "qiankun";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { getAuthState, logout, subscribe, updateUser } from "./auth/auth";
 import { on } from "./events/event-bus";
 import "./index.css";
+import { useAuthStore } from "./stores/authStore";
 
 on("user.updated", (updatedUser) => {
-  updateUser(updatedUser);
+  // Update user in Zustand store if they edit profile
+  useAuthStore.setState({ user: updatedUser as CurrentUser });
 });
 
 const root = createRoot(document.getElementById("root")!);
@@ -22,35 +23,34 @@ root.render(
   </StrictMode>,
 );
 
-const auth = getAuthState();
+const initialAuth = useAuthStore.getState();
 
 const globalState = initGlobalState({
-  user: auth.user,
-  accessToken: auth.accessToken,
+  user: initialAuth.user,
+  permissions: initialAuth.permissions,
 });
 
-subscribe((newState) => {
+useAuthStore.subscribe((newState) => {
   globalState.setGlobalState({
     user: newState.user,
-    accessToken: newState.accessToken,
+    permissions: newState.permissions,
   });
 });
 
 const userAppProps: UserAppProps = {
-  user: auth.user,
+  user: initialAuth.user,
   theme: "dark",
-  permissions: ["user:read", "user:create"],
+  permissions: initialAuth.permissions,
   onLogout: () => {
-    logout();
-
-    console.log("[main-app] User logged out");
+    useAuthStore.getState().logout();
+    console.log("[main-app] User logged out via micro-app");
   },
 };
 
 const orderAppProps: OrderAppProps = {
-  user: auth.user,
+  user: initialAuth.user,
   theme: "dark",
-  permissions: ["order:read"],
+  permissions: initialAuth.permissions,
 };
 
 registerMicroApps([
@@ -59,7 +59,6 @@ registerMicroApps([
     entry: "//localhost:5174",
     container: "#subapp-container",
     activeRule: "/users",
-
     props: userAppProps,
   },
   {
@@ -67,7 +66,6 @@ registerMicroApps([
     entry: "//localhost:5175",
     container: "#subapp-container",
     activeRule: "/orders",
-
     props: orderAppProps,
   },
 ]);
