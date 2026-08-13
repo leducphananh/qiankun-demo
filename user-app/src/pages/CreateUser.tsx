@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function CreateUser() {
   return (
-    <div className="animate-fade-in mx-auto max-w-md rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+    <div className="animate-fade-in p-container mx-auto max-w-md rounded-xl border border-gray-200 bg-white shadow-sm">
       <h2 className="mb-6 text-xl font-bold text-gray-900">Create New User</h2>
       <div className="space-y-4">
         <div>
@@ -11,7 +11,7 @@ export default function CreateUser() {
           </label>
           <input
             type="text"
-            className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 transition-colors focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+            className="focus:border-brand-primary focus:ring-brand-primary w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 transition-colors focus:ring-1 focus:outline-none"
             placeholder="John Doe"
           />
         </div>
@@ -21,7 +21,7 @@ export default function CreateUser() {
           </label>
           <input
             type="email"
-            className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 transition-colors focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+            className="focus:border-brand-primary focus:ring-brand-primary w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 transition-colors focus:ring-1 focus:outline-none"
             placeholder="john@example.com"
           />
         </div>
@@ -32,7 +32,7 @@ export default function CreateUser() {
           >
             Cancel
           </Link>
-          <button className="flex-1 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-md shadow-blue-500/20 transition-colors hover:bg-blue-700">
+          <button className="bg-brand-primary shadow-brand-primary/20 flex-1 rounded-lg px-4 py-2.5 text-sm font-medium text-white shadow-md transition-colors hover:opacity-90">
             Save User
           </button>
         </div>

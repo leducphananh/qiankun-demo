@@ -43,14 +43,14 @@ export default function MainLayout({
   };
 
   return (
-    <div className="flex min-h-screen flex-col font-sans selection:bg-blue-500/30">
+    <div className="selection:bg-brand-primary/30 flex min-h-screen flex-col font-sans">
       {/* Top Navigation Bar */}
       <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 shadow-sm backdrop-blur-xl">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+        <div className="px-container mx-auto flex h-20 max-w-7xl items-center justify-between">
           {/* Logo & Links */}
           <div className="flex items-center gap-10">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-tr from-blue-600 to-indigo-600 shadow-md shadow-blue-500/20">
+              <div className="from-brand-primary to-brand-secondary shadow-brand-primary/20 flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-tr shadow-md">
                 <svg
                   className="h-6 w-6 text-white"
                   fill="none"
@@ -81,7 +81,7 @@ export default function MainLayout({
             {auth.isAuthenticated ? (
               <div className="animate-fade-in flex items-center gap-4">
                 <div className="flex items-center gap-3 rounded-full border border-gray-200 bg-white py-1.5 pr-4 pl-2 shadow-sm">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-emerald-500 to-teal-600 text-sm font-bold text-white shadow-inner">
+                  <div className="from-brand-secondary flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br to-teal-600 text-sm font-bold text-white shadow-inner">
                     {auth.user?.name.charAt(0)}
                   </div>
                   <span className="text-sm font-medium text-gray-700">
@@ -98,7 +98,7 @@ export default function MainLayout({
             ) : (
               <button
                 onClick={handleLogin}
-                className="animate-fade-in rounded-lg bg-gray-900 px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 hover:shadow-lg"
+                className="animate-fade-in px-container rounded-lg bg-gray-900 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 hover:shadow-lg"
               >
                 Sign In
               </button>
@@ -108,7 +108,7 @@ export default function MainLayout({
       </nav>
 
       {/* Main Content Area */}
-      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 py-10">
+      <main className="px-container mx-auto flex w-full max-w-7xl flex-1 flex-col py-10">
         {children}
 
         {/* Micro-frontend Container */}

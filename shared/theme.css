@@ -1,0 +1,22 @@
+@theme {
+  /* Shared Animations */
+  --animate-fade-in: fade-in 0.4s ease-out forwards;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Shared Brand Colors */
+  --color-brand-primary: #2563eb; /* blue-600 */
+  --color-brand-secondary: #059669; /* emerald-600 */
+
+  /* Shared Global Variables accessible everywhere */
+  --spacing-container: 1.5rem;
+}
