@@ -4,7 +4,8 @@ import { on } from "./events/event-bus";
 import type { AppEvents } from "./events/events";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
-import Users from "./pages/Users";
+import OrderApp from "./pages/OrderApp";
+import UserApp from "./pages/UserApp";
 
 export default function App() {
   const handleUserUpdated = (user: AppEvents["user.updated"]) => {
@@ -23,7 +24,8 @@ export default function App() {
     <MainLayout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/users/*" element={<Users />} />
+        <Route path="/users/*" element={<UserApp />} />
+        <Route path="/orders/*" element={<OrderApp />} />
       </Routes>
     </MainLayout>
   );

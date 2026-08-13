@@ -3,27 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { getAuthState, login, logout, subscribe } from "../auth/auth";
 import { cn } from "../utils/cn";
 
-function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
-  const location = useLocation();
-  const isActive =
-    location.pathname.startsWith(to) &&
-    (to !== "/" || location.pathname === "/");
-
-  return (
-    <Link
-      to={to}
-      className={cn(
-        "rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300",
-        isActive
-          ? "bg-blue-50 text-blue-600 shadow-sm"
-          : "text-gray-600 hover:bg-gray-100 hover:text-gray-900",
-      )}
-    >
-      {children}
-    </Link>
-  );
-}
-
 export default function MainLayout({
   children,
 }: {
@@ -73,6 +52,7 @@ export default function MainLayout({
             <div className="hidden items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 p-1.5 md:flex">
               <NavLink to="/">Home</NavLink>
               <NavLink to="/users">Users</NavLink>
+              <NavLink to="/orders">Orders</NavLink>
             </div>
           </div>
 
@@ -118,5 +98,26 @@ export default function MainLayout({
         />
       </main>
     </div>
+  );
+}
+
+function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
+  const location = useLocation();
+  const isActive =
+    location.pathname.startsWith(to) &&
+    (to !== "/" || location.pathname === "/");
+
+  return (
+    <Link
+      to={to}
+      className={cn(
+        "rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300",
+        isActive
+          ? "bg-blue-50 text-blue-600 shadow-sm"
+          : "text-gray-600 hover:bg-gray-100 hover:text-gray-900",
+      )}
+    >
+      {children}
+    </Link>
   );
 }

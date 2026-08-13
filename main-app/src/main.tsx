@@ -6,7 +6,7 @@ import App from "./App";
 import { getAuthState, logout, subscribe, updateUser } from "./auth/auth";
 import { on } from "./events/event-bus";
 import "./index.css";
-import type { UserAppProps } from "./types/micro-app";
+import type { OrderAppProps, UserAppProps } from "./types/micro-app";
 
 on("user.updated", (updatedUser) => {
   updateUser(updatedUser);
@@ -47,6 +47,10 @@ const userAppProps: UserAppProps = {
   },
 };
 
+const orderAppProps: OrderAppProps = {
+  user: auth.user,
+};
+
 registerMicroApps([
   {
     name: "user-app",
@@ -55,6 +59,14 @@ registerMicroApps([
     activeRule: "/users",
 
     props: userAppProps,
+  },
+  {
+    name: "order-app",
+    entry: "//localhost:5175",
+    container: "#subapp-container",
+    activeRule: "/orders",
+
+    props: orderAppProps,
   },
 ]);
 

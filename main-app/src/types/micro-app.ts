@@ -5,3 +5,7 @@ export interface UserAppProps {
   accessToken: string | null;
   onLogout: () => void;
 }
+
+export interface OrderAppProps {
+  user: CurrentUser | null;
+}
